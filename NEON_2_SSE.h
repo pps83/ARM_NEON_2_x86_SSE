@@ -64,6 +64,11 @@
 
 #include <math.h>
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
 //***************  functions and data attributes, compiler dependent  *********************************
 //***********************************************************************************
 #ifdef __GNUC__
@@ -2361,7 +2366,7 @@ float64x2_t vsqrtq_f64(float64x2_t a); // VSQRT.F64 q0,q0
 
 	_NEON2SSE_INLINE int16_t _MM_EXTRACT_EPI16(__m128i vec, const int LANE)
     {
-        _NEON2SSE_SWITCH8(_mm_extract_epi16, vec, LANE,)
+        _NEON2SSE_SWITCH8((int16_t)_mm_extract_epi16, vec, LANE,)
     }
 
 #ifdef USE_SSE4
@@ -16705,5 +16710,8 @@ float32x4_t vsqrtq_f32(float32x4_t a);
 float64x2_t vsqrtq_f64(float64x2_t a);
 #define vsqrtq_f64 _mm_sqrt_pd
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif /* NEON2SSE_H */
