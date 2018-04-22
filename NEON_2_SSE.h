@@ -16892,6 +16892,183 @@ _NEON2SSE_INLINE float32_t vminvq_f32(float32x4_t r16) // FMINV Sd,Vn.4S (AArch6
     return vminv_f32(r);
 }
 
+
+_NEON2SSE_INLINE int64x2_t vpaddq_s64(int64x2_t a, int64x2_t b)
+{
+    int64x1_t xa = vadd_s64(vget_low_s64(a), vget_high_s64(a));
+    int64x1_t xb = vadd_s64(vget_low_s64(b), vget_high_s64(b));
+    return vcombine_s64(xa, xb);
+}
+
+_NEON2SSE_INLINE int8_t vaddv_s8(int8x8_t r)
+{
+    r = vpadd_s8(r, r);
+    r = vpadd_s8(r, r);
+    r = vpadd_s8(r, r);
+    return vget_lane_s8(r, 0);
+}
+
+_NEON2SSE_INLINE int16_t vaddv_s16(int16x4_t r)
+{
+    r = vpadd_s16(r, r);
+    r = vpadd_s16(r, r);
+    return vget_lane_s16(r, 0);
+}
+
+_NEON2SSE_INLINE int32_t vaddv_s32(int32x2_t r)
+{
+    r = vpadd_s32(r, r);
+    return vget_lane_s32(r, 0);
+}
+
+_NEON2SSE_INLINE int8_t vaddvq_s8(int8x16_t r)
+{
+    int8x8_t x = vpadd_s8(vget_low_s8(r), vget_high_s8(r));
+    return vaddv_s8(x);
+}
+
+_NEON2SSE_INLINE int16_t vaddvq_s16(int16x8_t r)
+{
+    int16x4_t x = vpadd_s16(vget_low_s16(r), vget_high_s16(r));
+    return vaddv_s16(x);
+}
+
+_NEON2SSE_INLINE int32_t vaddvq_s32(int32x4_t r)
+{
+    int32x2_t x = vpadd_s32(vget_low_s32(r), vget_high_s32(r));
+    return vaddv_s32(x);
+}
+
+_NEON2SSE_INLINE int64_t vaddvq_s64(int64x2_t r)
+{
+    int64x1_t x = vadd_s64(vget_low_s64(r), vget_high_s64(r));
+    return vget_lane_s64(x, 0);
+}
+
+_NEON2SSE_INLINE int16_t vaddlv_s8(int8x8_t r)
+{
+    int16x4_t x = vpaddl_s8(r);
+    return vaddv_s16(x);
+}
+
+_NEON2SSE_INLINE int32_t vaddlv_s16(int16x4_t r)
+{
+    int32x2_t x = vpaddl_s16(r);
+    return vaddv_s32(x);
+}
+
+_NEON2SSE_INLINE int64_t vaddlv_s32(int32x2_t r)
+{
+    int64x1_t x = vpaddl_s32(r);
+    return vget_lane_s64(x, 0);
+}
+
+_NEON2SSE_INLINE int16_t vaddlvq_s8(int8x16_t r)
+{
+    int16x8_t x = vpaddlq_s8(r);
+    return vaddvq_s16(x);
+}
+
+_NEON2SSE_INLINE int32_t vaddlvq_s16(int16x8_t r)
+{
+    int32x4_t x = vpaddlq_s16(r);
+    return vaddvq_s32(x);
+}
+
+_NEON2SSE_INLINE int64_t vaddlvq_s32(int32x4_t r)
+{
+    int64x2_t x = vpaddlq_s32(r);
+    return vaddvq_s64(x);
+}
+
+_NEON2SSE_INLINE uint64x2_t vpaddq_u64(uint64x2_t a, uint64x2_t b)
+{
+    uint64x1_t xa = vadd_u64(vget_low_u64(a), vget_high_u64(a));
+    uint64x1_t xb = vadd_u64(vget_low_u64(b), vget_high_u64(b));
+    return vcombine_u64(xa, xb);
+}
+
+_NEON2SSE_INLINE uint8_t vaddv_u8(uint8x8_t r)
+{
+    r = vpadd_u8(r, r);
+    r = vpadd_u8(r, r);
+    r = vpadd_u8(r, r);
+    return vget_lane_u8(r, 0);
+}
+
+_NEON2SSE_INLINE uint16_t vaddv_u16(uint16x4_t r)
+{
+    r = vpadd_u16(r, r);
+    r = vpadd_u16(r, r);
+    return vget_lane_u16(r, 0);
+}
+
+_NEON2SSE_INLINE uint32_t vaddv_u32(uint32x2_t r)
+{
+    r = vpadd_u32(r, r);
+    return vget_lane_u32(r, 0);
+}
+
+_NEON2SSE_INLINE uint8_t vaddvq_u8(uint8x16_t r)
+{
+    uint8x8_t x = vpadd_u8(vget_low_u8(r), vget_high_u8(r));
+    return vaddv_u8(x);
+}
+
+_NEON2SSE_INLINE uint16_t vaddvq_u16(uint16x8_t r)
+{
+    uint16x4_t x = vpadd_u16(vget_low_u16(r), vget_high_u16(r));
+    return vaddv_u16(x);
+}
+
+_NEON2SSE_INLINE uint32_t vaddvq_u32(uint32x4_t r)
+{
+    uint32x2_t x = vpadd_u32(vget_low_u32(r), vget_high_u32(r));
+    return vaddv_u32(x);
+}
+
+_NEON2SSE_INLINE uint64_t vaddvq_u64(uint64x2_t r)
+{
+    uint64x1_t x = vadd_u64(vget_low_u64(r), vget_high_u64(r));
+    return vget_lane_u64(x, 0);
+}
+
+_NEON2SSE_INLINE uint16_t vaddlv_u8(uint8x8_t r)
+{
+    uint16x4_t x = vpaddl_u8(r);
+    return vaddv_u16(x);
+}
+
+_NEON2SSE_INLINE uint32_t vaddlv_u16(uint16x4_t r)
+{
+    uint32x2_t x = vpaddl_u16(r);
+    return vaddv_u32(x);
+}
+
+_NEON2SSE_INLINE uint64_t vaddlv_u32(uint32x2_t r)
+{
+    uint64x1_t x = vpaddl_u32(r);
+    return vget_lane_u64(x, 0);
+}
+
+_NEON2SSE_INLINE uint16_t vaddlvq_u8(uint8x16_t r)
+{
+    uint16x8_t x = vpaddlq_u8(r);
+    return vaddvq_u16(x);
+}
+
+_NEON2SSE_INLINE uint32_t vaddlvq_u16(uint16x8_t r)
+{
+    uint32x4_t x = vpaddlq_u16(r);
+    return vaddvq_u32(x);
+}
+
+_NEON2SSE_INLINE uint64_t vaddlvq_u32(uint32x4_t r)
+{
+    uint64x2_t x = vpaddlq_u32(r);
+    return vaddvq_u64(x);
+}
+
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
