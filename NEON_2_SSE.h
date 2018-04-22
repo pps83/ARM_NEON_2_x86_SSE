@@ -16710,6 +16710,188 @@ float32x4_t vsqrtq_f32(float32x4_t a);
 float64x2_t vsqrtq_f64(float64x2_t a);
 #define vsqrtq_f64 _mm_sqrt_pd
 
+
+_NEON2SSE_INLINE int8_t vmaxv_s8(int8x8_t r) // SMAXV Bd,Vn.8B (AArch64)
+{
+    r = vpmax_s8(r, r);
+    r = vpmax_s8(r, r);
+    r = vpmax_s8(r, r);
+    return vget_lane_s8(r, 0);
+}
+
+_NEON2SSE_INLINE int8_t vmaxvq_s8(int8x16_t r16) // SMAXV Bd,Vn.16B (AArch64)
+{
+    int8x8_t r = vpmax_s8(vget_low_s8(r16), vget_high_s8(r16));
+    return vmaxv_s8(r);
+}
+
+_NEON2SSE_INLINE int16_t vmaxv_s16(int16x4_t r) // SMAXV Hd,Vn.4H (AArch64)
+{
+    r = vpmax_s16(r, r);
+    r = vpmax_s16(r, r);
+    return vget_lane_s16(r, 0);
+}
+
+_NEON2SSE_INLINE int16_t vmaxvq_s16(int16x8_t r16) // SMAXV Hd,Vn.8H (AArch64)
+{
+    int16x4_t r = vpmax_s16(vget_low_s16(r16), vget_high_s16(r16));
+    return vmaxv_s16(r);
+}
+
+_NEON2SSE_INLINE int32_t vmaxv_s32(int32x2_t r) // SMAXP Vd.2S,Vn.2S,Vm.2S (AArch64)
+{
+    r = vpmax_s32(r, r);
+    return vget_lane_s32(r, 0);
+}
+
+_NEON2SSE_INLINE int32_t vmaxvq_s32(int32x4_t r16) // SMAXV Sd,Vn.4S (AArch64)
+{
+    int32x2_t r = vpmax_s32(vget_low_s32(r16), vget_high_s32(r16));
+    return vmaxv_s32(r);
+}
+
+_NEON2SSE_INLINE uint8_t vmaxv_u8(uint8x8_t r) // UMAXV Bd,Vn.8B (AArch64)
+{
+    r = vpmax_u8(r, r);
+    r = vpmax_u8(r, r);
+    r = vpmax_u8(r, r);
+    return vget_lane_u8(r, 0);
+}
+
+_NEON2SSE_INLINE uint8_t vmaxvq_u8(uint8x16_t r16) // UMAXV Bd,Vn.16B (AArch64)
+{
+    uint8x8_t r = vpmax_u8(vget_low_u8(r16), vget_high_u8(r16));
+    return vmaxv_u8(r);
+}
+
+_NEON2SSE_INLINE uint16_t vmaxv_u16(uint16x4_t r) // UMAXV Hd,Vn.4H (AArch64)
+{
+    r = vpmax_u16(r, r);
+    r = vpmax_u16(r, r);
+    return vget_lane_u16(r, 0);
+}
+
+_NEON2SSE_INLINE uint16_t vmaxvq_u16(uint16x8_t r16) // UMAXV Hd,Vn.8H (AArch64)
+{
+    uint16x4_t r = vpmax_u16(vget_low_u16(r16), vget_high_u16(r16));
+    return vmaxv_u16(r);
+}
+
+_NEON2SSE_INLINE uint32_t vmaxv_u32(uint32x2_t r) // UMAXP Vd.2S,Vn.2S,Vm.2S (AArch64)
+{
+    r = vpmax_u32(r, r);
+    return vget_lane_u32(r, 0);
+}
+
+_NEON2SSE_INLINE uint32_t vmaxvq_u32(uint32x4_t r16) // UMAXV Sd,Vn.4S (AArch64)
+{
+    uint32x2_t r = vpmax_u32(vget_low_u32(r16), vget_high_u32(r16));
+    return vmaxv_u32(r);
+}
+
+_NEON2SSE_INLINE float32_t vmaxv_f32(float32x2_t r) // FMAXP Sd,Vn.2S (AArch64)
+{
+    r = vpmax_u32(r, r);
+    return vget_lane_f32(r, 0);
+}
+
+_NEON2SSE_INLINE float32_t vmaxvq_f32(float32x4_t r16) // FMAXV Sd,Vn.4S (AArch64)
+{
+    float32x2_t r = vpmax_f32(vget_low_f32(r16), vget_high_f32(r16));
+    return vmaxv_f32(r);
+}
+
+
+_NEON2SSE_INLINE int8_t vminv_s8(int8x8_t r) // SMINV Bd,Vn.8B (AArch64)
+{
+    r = vpmin_s8(r, r);
+    r = vpmin_s8(r, r);
+    r = vpmin_s8(r, r);
+    return vget_lane_s8(r, 0);
+}
+
+_NEON2SSE_INLINE int8_t vminvq_s8(int8x16_t r16) // SMINV Bd,Vn.16B (AArch64)
+{
+    int8x8_t r = vpmin_s8(vget_low_s8(r16), vget_high_s8(r16));
+    return vminv_s8(r);
+}
+
+_NEON2SSE_INLINE int16_t vminv_s16(int16x4_t r) // SMINV Hd,Vn.4H (AArch64)
+{
+    r = vpmin_s16(r, r);
+    r = vpmin_s16(r, r);
+    return vget_lane_s16(r, 0);
+}
+
+_NEON2SSE_INLINE int16_t vminvq_s16(int16x8_t r16) // SMINV Hd,Vn.8H (AArch64)
+{
+    int16x4_t r = vpmin_s16(vget_low_s16(r16), vget_high_s16(r16));
+    return vminv_s16(r);
+}
+
+_NEON2SSE_INLINE int32_t vminv_s32(int32x2_t r) // SMINP Vd.2S,Vn.2S,Vm.2S (AArch64)
+{
+    r = vpmin_s32(r, r);
+    return vget_lane_s32(r, 0);
+}
+
+_NEON2SSE_INLINE int32_t vminvq_s32(int32x4_t r16) // SMINV Sd,Vn.4S (AArch64)
+{
+    int32x2_t r = vpmin_s32(vget_low_s32(r16), vget_high_s32(r16));
+    return vminv_s32(r);
+}
+
+_NEON2SSE_INLINE uint8_t vminv_u8(uint8x8_t r) // UMINV Bd,Vn.8B (AArch64)
+{
+    r = vpmin_u8(r, r);
+    r = vpmin_u8(r, r);
+    r = vpmin_u8(r, r);
+    return vget_lane_u8(r, 0);
+}
+
+_NEON2SSE_INLINE uint8_t vminvq_u8(uint8x16_t r16) // UMINV Bd,Vn.16B (AArch64)
+{
+    uint8x8_t r = vpmin_u8(vget_low_u8(r16), vget_high_u8(r16));
+    return vminv_u8(r);
+}
+
+_NEON2SSE_INLINE uint16_t vminv_u16(uint16x4_t r) // UMINV Hd,Vn.4H (AArch64)
+{
+    r = vpmin_u16(r, r);
+    r = vpmin_u16(r, r);
+    return vget_lane_u16(r, 0);
+}
+
+_NEON2SSE_INLINE uint16_t vminvq_u16(uint16x8_t r16) // UMINV Hd,Vn.8H (AArch64)
+{
+    uint16x4_t r = vpmin_u16(vget_low_u16(r16), vget_high_u16(r16));
+    return vminv_u16(r);
+}
+
+_NEON2SSE_INLINE uint32_t vminv_u32(uint32x2_t r) // UMINP Vd.2S,Vn.2S,Vm.2S (AArch64)
+{
+    r = vpmin_u32(r, r);
+    return vget_lane_u32(r, 0);
+}
+
+_NEON2SSE_INLINE uint32_t vminvq_u32(uint32x4_t r16) // UMINV Sd,Vn.4S (AArch64)
+{
+    uint32x2_t r = vpmin_u32(vget_low_u32(r16), vget_high_u32(r16));
+    return vminv_u32(r);
+}
+
+_NEON2SSE_INLINE float32_t vminv_f32(float32x2_t r) // FMINP Sd,Vn.2S (AArch64)
+{
+    r = vpmin_u32(r, r);
+    return vget_lane_f32(r, 0);
+}
+
+_NEON2SSE_INLINE float32_t vminvq_f32(float32x4_t r16) // FMINV Sd,Vn.4S (AArch64)
+{
+    float32x2_t r = vpmin_f32(vget_low_f32(r16), vget_high_f32(r16));
+    return vminv_f32(r);
+}
+
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
