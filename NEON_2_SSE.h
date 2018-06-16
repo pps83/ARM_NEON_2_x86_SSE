@@ -9589,6 +9589,14 @@ void vst1q_u16(__transfersize(8) uint16_t * ptr, uint16x8_t val); // VST1.16 {d0
 
 void vst1q_u32(__transfersize(4) uint32_t * ptr, uint32x4_t val); // VST1.32 {d0, d1}, [r0]
 #define vst1q_u32 STORE_SI128
+static _NEON2SSE_INLINE void vst1q_u32_x4_ptr(uint32_t * ptr, uint32x4x4_t* val) // VST1.32 {d0, d1, d2, d3, d4, d5, d6, d7}, [r0]
+{
+    vst1q_u32(ptr + 0, val->val[0]);
+    vst1q_u32(ptr + 4, val->val[1]);
+    vst1q_u32(ptr + 8, val->val[2]);
+    vst1q_u32(ptr +12, val->val[3]);
+}
+#define vst1q_u32_x4(ptr, val) vst1q_u32_x4_ptr(ptr, &val)
 
 void vst1q_u64(__transfersize(2) uint64_t * ptr, uint64x2_t val); // VST1.64 {d0, d1}, [r0]
 #define vst1q_u64 STORE_SI128
